@@ -13,6 +13,7 @@ import { login, logout } from "../lib/commands/login.js";
 import { verify } from "../lib/commands/verify.js";
 import { apps } from "../lib/commands/apps.js";
 import { whoami } from "../lib/commands/whoami.js";
+import { deploy } from "../lib/commands/deploy.js";
 
 const program = new Command();
 
@@ -55,6 +56,21 @@ program
   .option("-p, --project <id>", "Filtrar por ID do projeto")
   .action(async (options) => {
     await apps(options);
+  });
+
+// ---- deploy ----
+program
+  .command("deploy")
+  .description("Disparar deploy/redeploy de um app")
+  .option(
+    "-a, --app <name>",
+    "Nome ou ID do app (senão detecta pelo git remote)",
+  )
+  .option("-d, --dir <path>", "Diretório do projeto", ".")
+  .option("--skip-verify", "Pular verificação de arquivos")
+  .option("--no-wait", "Não aguardar o deploy terminar")
+  .action(async (options) => {
+    await deploy(options);
   });
 
 // ---- whoami ----
