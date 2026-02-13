@@ -21,7 +21,7 @@ const program = new Command();
 program
   .name("fabroku")
   .description("🚀 Fabroku CLI — Ferramenta de deploy para o Fabroku")
-  .version("0.1.3");
+  .version("0.1.4");
 
 // ---- login ----
 program
@@ -87,6 +87,10 @@ program
   .command("webhook [appId]")
   .description("Diagnosticar e configurar webhook do GitHub para um app")
   .option("--setup", "Criar/recriar o webhook automaticamente")
+  .option(
+    "--test",
+    "Testar se commit status funciona (cria e remove um status)",
+  )
   .action(async (appId, options) => {
     await webhook(appId, options);
   });
