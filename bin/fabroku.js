@@ -14,6 +14,7 @@ import { verify } from "../lib/commands/verify.js";
 import { apps } from "../lib/commands/apps.js";
 import { whoami } from "../lib/commands/whoami.js";
 import { deploy } from "../lib/commands/deploy.js";
+import { webhook } from "../lib/commands/webhook.js";
 
 const program = new Command();
 
@@ -79,6 +80,15 @@ program
   .description("Verificar o usuário autenticado")
   .action(async () => {
     await whoami();
+  });
+
+// ---- webhook ----
+program
+  .command("webhook [appId]")
+  .description("Diagnosticar e configurar webhook do GitHub para um app")
+  .option("--setup", "Criar/recriar o webhook automaticamente")
+  .action(async (appId, options) => {
+    await webhook(appId, options);
   });
 
 program.parse();
